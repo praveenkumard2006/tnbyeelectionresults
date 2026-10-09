@@ -40,6 +40,14 @@ async function fetchEciData() {
     sourceUrl: ECI_URL
   };
   lastFetchTime = now;
+
+  // Persist to data.json for GitHub Pages and static consumers
+  try {
+    fs.writeFileSync(path.join(__dirname, 'data.json'), JSON.stringify({ success: true, data: cachedData }, null, 2));
+  } catch (err) {
+    console.warn('Could not persist data.json:', err.message);
+  }
+
   return cachedData;
 }
 

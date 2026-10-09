@@ -5,7 +5,10 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "sync": "node updater.js",
+    "sync:push": "node updater.js --push",
+    "update:once": "node updater.js --once"
   },
   "keywords": [
     "election",
