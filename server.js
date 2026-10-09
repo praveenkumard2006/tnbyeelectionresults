@@ -3,13 +3,35 @@ const fs = require('fs');
 const path = require('path');
 const { parseEciHtml } = require('./parser');
 
-const PORT = process.env.PORT || 3000;
+// Parse requested port from CLI args, process.env.PORT, or default 3000
+function getRequestedPort() {
+  const args = process.argv.slice(2);
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--port' || args[i] === '-p') {
+      const p = parseInt(args[i + 1], 10);
+      if (!isNaN(p) && p > 0 && p <= 65535) return p;
+    }
+    const num = parseInt(args[i], 10);
+    if (!isNaN(num) && num > 0 && num <= 65535) {
+      return num;
+    }
+  }
+
+  if (process.env.PORT) {
+    const p = parseInt(process.env.PORT, 10);
+    if (!isNaN(p) && p > 0 && p <= 65535) return p;
+  }
+
+  return 3000;
+}
+
+const INITIAL_PORT = getRequestedPort();
 const ECI_URL = 'https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm';
 
-// Simple in-memory cache
+// In-memory cache
 let cachedData = null;
 let lastFetchTime = 0;
-const CACHE_TTL_MS = 15 * 1000; // 15 seconds cache to stay near-instant live
+const CACHE_TTL_MS = 15 * 1000; // 15 seconds cache
 
 async function fetchEciData() {
   const now = Date.now();
@@ -33,21 +55,13 @@ async function fetchEciData() {
 
   const html = await response.text();
   const parsed = parseEciHtml(html);
-  
+
   cachedData = {
     ...parsed,
     fetchedAt: new Date().toISOString(),
     sourceUrl: ECI_URL
   };
   lastFetchTime = now;
-
-  // Persist to data.json for GitHub Pages and static consumers
-  try {
-    fs.writeFileSync(path.join(__dirname, 'data.json'), JSON.stringify({ success: true, data: cachedData }, null, 2));
-  } catch (err) {
-    console.warn('Could not persist data.json:', err.message);
-  }
-
   return cachedData;
 }
 
@@ -65,10 +79,10 @@ const MIME_TYPES = {
 };
 
 const server = http.createServer(async (req, res) => {
-  // Add CORS headers
+  // CORS & Security Headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Requested-With');
 
   if (req.method === 'OPTIONS') {
     res.writeHead(204);
@@ -76,24 +90,25 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+  const hostHeader = req.headers['x-forwarded-host'] || req.headers.host || 'localhost';
+  const protoHeader = req.headers['x-forwarded-proto'] || 'http';
+  const parsedUrl = new URL(req.url, `${protoHeader}://${hostHeader}`);
   const pathname = parsedUrl.pathname;
 
-  // API Endpoint
-  if (pathname === '/api/results') {
+  // Live API Endpoint (Supports exact /api/results or reverse-proxied subpaths like /subpath/api/results)
+  if (pathname === '/api/results' || pathname.endsWith('/api/results')) {
     try {
       const data = await fetchEciData();
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=utf-8',
-        'Cache-Control': 'no-cache'
+        'Cache-Control': 'no-cache, no-store, must-revalidate'
       });
       res.end(JSON.stringify({ success: true, data }));
     } catch (err) {
       console.error('Error fetching ECI data:', err.message);
-      // If we have cached data, return it even if expired with a warning
       if (cachedData) {
         res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ success: true, data: cachedData, warning: 'Serving stale cache: ' + err.message }));
+        res.end(JSON.stringify({ success: true, data: cachedData, warning: 'Stale cache: ' + err.message }));
       } else {
         res.writeHead(502, { 'Content-Type': 'application/json; charset=utf-8' });
         res.end(JSON.stringify({ success: false, error: err.message }));
@@ -102,16 +117,30 @@ const server = http.createServer(async (req, res) => {
     return;
   }
 
-  // Health check
-  if (pathname === '/api/health') {
+  // Health check endpoint
+  if (pathname === '/api/health' || pathname.endsWith('/api/health')) {
     res.writeHead(200, { 'Content-Type': 'application/json' });
     res.end(JSON.stringify({ status: 'healthy', uptime: process.uptime() }));
     return;
   }
 
-  // Serve static files
-  let filePath = pathname === '/' ? '/index.html' : pathname;
-  const safePath = path.normalize(path.join(__dirname, filePath));
+  // Static File Resolver (supports root files, subpaths, and clean URLs)
+  let requestedFile = pathname;
+  if (requestedFile === '/' || requestedFile.endsWith('/')) {
+    requestedFile += 'index.html';
+  }
+
+  // First try direct file in workspace
+  let safePath = path.normalize(path.join(__dirname, requestedFile));
+  
+  // If not found, try by filename (helpful if deployed under subpaths like /byeelection/style.css)
+  if (!fs.existsSync(safePath) || !fs.statSync(safePath).isFile()) {
+    const baseName = path.basename(pathname);
+    const altPath = path.normalize(path.join(__dirname, baseName));
+    if (fs.existsSync(altPath) && fs.statSync(altPath).isFile()) {
+      safePath = altPath;
+    }
+  }
 
   // Security check: ensure path stays within workspace root
   if (!safePath.startsWith(__dirname)) {
@@ -130,16 +159,48 @@ const server = http.createServer(async (req, res) => {
     const ext = path.extname(safePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
 
-    res.writeHead(200, { 'Content-Type': contentType });
+    // Allow cache for static css/images, but no-cache for html and data.json
+    const cacheControl = (ext === '.html' || ext === '.json')
+      ? 'no-cache, no-store, must-revalidate'
+      : 'public, max-age=3600';
+
+    res.writeHead(200, {
+      'Content-Type': contentType,
+      'Cache-Control': cacheControl
+    });
     const stream = fs.createReadStream(safePath);
     stream.pipe(res);
   });
 });
 
-server.listen(PORT, () => {
-  console.log(`=================================================`);
-  console.log(`Tamil Nadu Bye-Election Live Portal is running!`);
-  console.log(`Local URL: http://localhost:${PORT}`);
-  console.log(`API URL:   http://localhost:${PORT}/api/results`);
-  console.log(`=================================================`);
-});
+// Resilient port listener: tries requested port, auto-finds next port if busy
+function listenOnAvailablePort(port, attemptsRemaining = 20) {
+  server.once('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.warn(`[Port Notice] Port ${port} is currently in use.`);
+      if (attemptsRemaining > 0) {
+        const nextPort = port + 1;
+        console.log(`[Auto-Port] Retrying on port ${nextPort}...`);
+        listenOnAvailablePort(nextPort, attemptsRemaining - 1);
+      } else {
+        console.error('Fatal: Could not find any available port.');
+        process.exit(1);
+      }
+    } else {
+      console.error('Server error:', err);
+    }
+  });
+
+  // Listen on 0.0.0.0 for universal compatibility across Render, Railway, Heroku, Docker, and LAN
+  server.listen(port, '0.0.0.0', () => {
+    console.log(`=================================================`);
+    console.log(`Tamil Nadu Bye-Election Live Portal is running!`);
+    console.log(`Active Port:   ${port}`);
+    console.log(`Local URL:     http://localhost:${port}`);
+    console.log(`Network URL:   http://0.0.0.0:${port}`);
+    console.log(`API Endpoint:  http://localhost:${port}/api/results`);
+    console.log(`=================================================`);
+  });
+}
+
+listenOnAvailablePort(INITIAL_PORT);

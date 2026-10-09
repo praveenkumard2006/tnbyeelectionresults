@@ -1,314 +1,13 @@
 /**
  * Tamil Nadu Bye-Election 2026 Live Dashboard
- * Real-time 1-minute auto-refresh with GitHub Pages and Serverless Support
+ * Real-time 1-minute auto-refresh with client-side failover
  */
 
-// Fallback Snapshot (Ensures 0ms instant display on GitHub Pages & offline)
-const FALLBACK_SNAPSHOT = {
-  success: true,
-  electionTitle: "Bye Election to Assembly Constituencies: Results October-2026",
-  constituency: "101 - DHARAPURAM (Tamil Nadu)",
-  currentRound: 6,
-  totalRounds: 23,
-  roundProgress: 26,
-  lastUpdated: "11:06 am On 09/10/2026",
-  timestamp: new Date().toISOString(),
-  totalVotesCounted: 47643,
-  leadMargin: 1394,
-  leadingCandidate: {
-    name: "SATHYABAMA.P",
-    party: "Tamilaga Vettri Kazhagam",
-    partyCode: "TVK",
-    votes: 16201,
-    margin: "+ 1394",
-    img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHY-2026-20260916071322.jpg",
-    votePercentage: "34.00"
-  },
-  candidates: [
-    {
-      id: 1,
-      name: "SATHYABAMA.P",
-      party: "Tamilaga Vettri Kazhagam",
-      partyCode: "TVK",
-      votes: 16201,
-      margin: "+ 1394",
-      status: "leading",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHY-2026-20260916071322.jpg",
-      rank: 1,
-      votePercentage: "34.00"
-    },
-    {
-      id: 2,
-      name: "BANUMATHI.K",
-      party: "All India Anna Dravida Munnetra Kazhagam",
-      partyCode: "AIADMK",
-      votes: 14807,
-      margin: "-1394",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUM-2026-20260916092540.jpg",
-      rank: 2,
-      votePercentage: "31.08"
-    },
-    {
-      id: 3,
-      name: "SUGANYA.S",
-      party: "Dravida Munnetra Kazhagam",
-      partyCode: "DMK",
-      votes: 13797,
-      margin: "-2404",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SUGAN-2026-20260915042839.jpg",
-      rank: 3,
-      votePercentage: "28.96"
-    },
-    {
-      id: 4,
-      name: "KARTHIKA.M",
-      party: "Naam Tamilar Katchi",
-      partyCode: "NTK",
-      votes: 1146,
-      margin: "-15055",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KARTH-2026-20260916090419.jpg",
-      rank: 4,
-      votePercentage: "2.41"
-    },
-    {
-      id: 5,
-      name: "LAKSHMANAN.P",
-      party: "Communist Party of India",
-      partyCode: "CPI",
-      votes: 298,
-      margin: "-15903",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/LAKSH-2026-20260916072443.jpg",
-      rank: 5,
-      votePercentage: "0.63"
-    },
-    {
-      id: 6,
-      name: "RAJARATHINAM.S",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 205,
-      margin: "-15996",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RAJAR-2026-20260915062944.jpg",
-      rank: 6,
-      votePercentage: "0.43"
-    },
-    {
-      id: 23,
-      name: "NOTA",
-      party: "None of the Above",
-      partyCode: "NOTA",
-      votes: 187,
-      margin: "-16014",
-      status: "nota",
-      img: "https://results.eci.gov.in/ResultAcByeOct2026/img/nota.jpg",
-      rank: 7,
-      votePercentage: "0.39"
-    },
-    {
-      id: 7,
-      name: "MARIMUTHU.N",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 114,
-      margin: "-16087",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MARIM-2026-20260916074606.jpg",
-      rank: 8,
-      votePercentage: "0.24"
-    },
-    {
-      id: 8,
-      name: "MUTHUSAMY.P",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 107,
-      margin: "-16094",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/MUTHU-2026-20260916064743.jpg",
-      rank: 9,
-      votePercentage: "0.22"
-    },
-    {
-      id: 9,
-      name: "BANUPRIYA.S",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 98,
-      margin: "-16103",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUP-2026-20260915062542.jpg",
-      rank: 10,
-      votePercentage: "0.21"
-    },
-    {
-      id: 10,
-      name: "SATHISHKUMAR.M",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 93,
-      margin: "-16108",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHI-2026-20260915051952.jpg",
-      rank: 11,
-      votePercentage: "0.20"
-    },
-    {
-      id: 11,
-      name: "PERUMAL.R",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 88,
-      margin: "-16113",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/PERUM-2026-20260916101543.jpg",
-      rank: 12,
-      votePercentage: "0.18"
-    },
-    {
-      id: 12,
-      name: "BANUMATHI.C",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 86,
-      margin: "-16115",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUM-2026-20260916081040.jpg",
-      rank: 13,
-      votePercentage: "0.18"
-    },
-    {
-      id: 13,
-      name: "NALLASAMY.P",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 81,
-      margin: "-16120",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/NALLA-2026-20260915070306.jpg",
-      rank: 14,
-      votePercentage: "0.17"
-    },
-    {
-      id: 14,
-      name: "MAHENDRAN.S",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 70,
-      margin: "-16131",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MAHEN-2026-20260916073046.jpg",
-      rank: 15,
-      votePercentage: "0.15"
-    },
-    {
-      id: 15,
-      name: "DHANALAKSHMI.S",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 46,
-      margin: "-16155",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/DHANA-2026-20260916082805.jpg",
-      rank: 16,
-      votePercentage: "0.10"
-    },
-    {
-      id: 16,
-      name: "SATHYABAMA.M",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 40,
-      margin: "-16161",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHY-2026-20260915063438.jpg",
-      rank: 17,
-      votePercentage: "0.08"
-    },
-    {
-      id: 17,
-      name: "ARULRAJU.G",
-      party: "Anaithinthiya Anna Dravida Makkal Seyal katchi",
-      partyCode: "OTH",
-      votes: 38,
-      margin: "-16163",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/ARULR-2026-20260916085704.jpg",
-      rank: 18,
-      votePercentage: "0.08"
-    },
-    {
-      id: 18,
-      name: "RAJESHWARI.V",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 38,
-      margin: "-16163",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RAJES-2026-20260915061746.jpg",
-      rank: 19,
-      votePercentage: "0.08"
-    },
-    {
-      id: 19,
-      name: "JOTHEESHWARI.D",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 37,
-      margin: "-16164",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/JOTHE-2026-20260915063915.jpg",
-      rank: 20,
-      votePercentage: "0.08"
-    },
-    {
-      id: 20,
-      name: "ARUMUGAM.R",
-      party: "Ganasangam Party of India",
-      partyCode: "OTH",
-      votes: 28,
-      margin: "-16173",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/ARUMU-2026-20260916103127.jpg",
-      rank: 21,
-      votePercentage: "0.06"
-    },
-    {
-      id: 21,
-      name: "MAHESHWARAN.S",
-      party: "Anti Corruption Dynamic Party",
-      partyCode: "OTH",
-      votes: 20,
-      margin: "-16181",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MAHES-2026-20260915051407.jpg",
-      rank: 22,
-      votePercentage: "0.04"
-    },
-    {
-      id: 22,
-      name: "SASIPRIYA.S",
-      party: "Independent",
-      partyCode: "IND",
-      votes: 18,
-      margin: "-16183",
-      status: "trailing",
-      img: "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SASIP-2026-20260915062213.jpg",
-      rank: 23,
-      votePercentage: "0.04"
-    }
-  ]
-};
-
-// Global State
+// State Management
 const state = {
-  data: FALLBACK_SNAPSHOT,
+  data: null,
   previousVotes: {},
-  previousRound: FALLBACK_SNAPSHOT.currentRound,
+  previousRound: 0,
   countdown: 60,
   timerInterval: null,
   isFetching: false,
@@ -396,9 +95,6 @@ const PARTY_THEMES = {
   NOTA: { color: '#64748b', bg: 'rgba(100, 116, 139, 0.15)', nameTa: 'நோட்டா' }
 };
 
-// Default Avatar Fallback SVG Data URI
-const DEFAULT_AVATAR = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="%2364748b"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
-
 // DOM Element References
 const dom = {
   electionTitle: document.getElementById('electionTitle'),
@@ -462,31 +158,33 @@ function formatNumber(num) {
   return Number(num).toLocaleString('en-IN');
 }
 
-// Sound Synthesizer via Web Audio API
+// Sound Synthesizer via Web Audio API (No external sound files required)
 function playNotificationChime() {
   if (!state.soundEnabled) return;
   try {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return;
     const ctx = new AudioContext();
-    
-    const osc = ctx.createOscillator();
+
+    // Smooth pleasant two-tone election chime (E5 -> G5)
+    const osc1 = ctx.createOscillator();
+    const osc2 = ctx.createOscillator();
     const gain = ctx.createGain();
 
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(659.25, ctx.currentTime); // E5
-    osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.15); // G5
+    osc1.type = 'sine';
+    osc1.frequency.setValueAtTime(659.25, ctx.currentTime); // E5
+    osc1.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.15); // G5
 
     gain.gain.setValueAtTime(0.08, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
 
-    osc.connect(gain);
+    osc1.connect(gain);
     gain.connect(ctx.destination);
 
-    osc.start();
-    osc.stop(ctx.currentTime + 0.4);
+    osc1.start();
+    osc1.stop(ctx.currentTime + 0.4);
   } catch (e) {
-    // Restricted before user gesture
+    // Audio context may be restricted before user gesture
   }
 }
 
@@ -499,7 +197,7 @@ function showToast(message) {
   }, 3500);
 }
 
-// Multi-Tier Fetch Engine (Works on GitHub Pages, Vercel, and Localhost)
+// Universal Fetch Engine (Works on ANY port, ANY live website, GitHub Pages, and Localhost)
 async function fetchResults(isManual = false) {
   if (state.isFetching) return;
   state.isFetching = true;
@@ -511,35 +209,48 @@ async function fetchResults(isManual = false) {
 
   let resultData = null;
 
-  // Strategy 1: Relative data.json (Primary for GitHub Pages & static hosting)
-  try {
-    const dataUrl = `./data.json?_t=${Date.now()}`;
-    const res = await fetch(dataUrl, { cache: 'no-store' });
-    if (res.ok) {
-      const json = await res.json();
-      if (json && (json.data || json.candidates)) {
-        resultData = json.data || json;
+  // 1. Live API Candidates (relative to current host, protocol, and port)
+  const apiCandidates = [
+    './api/results',
+    'api/results',
+    '/api/results'
+  ];
+
+  for (const ep of apiCandidates) {
+    try {
+      const res = await fetch(ep, { cache: 'no-store' });
+      if (res.ok) {
+        const json = await res.json();
+        if (json && json.success && json.data) {
+          resultData = json.data;
+          break;
+        }
       }
+    } catch (e) {
+      // Continue to next candidate
     }
-  } catch (err) {
-    console.log('Static data.json fetch failed:', err);
   }
 
-  // Strategy 2: /api/results or api/results (Local Node.js server or Vercel serverless)
+  // 2. Static Data Feed Candidates (for GitHub Pages, Cloudflare Pages, S3, etc.)
   if (!resultData) {
-    const apiEndpoints = ['/api/results', 'api/results'];
-    for (const ep of apiEndpoints) {
+    const dataCandidates = [
+      `./data.json?_t=${Date.now()}`,
+      `data.json?_t=${Date.now()}`,
+      `/data.json?_t=${Date.now()}`
+    ];
+
+    for (const dUrl of dataCandidates) {
       try {
-        const res = await fetch(ep, { cache: 'no-store' });
+        const res = await fetch(dUrl, { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
-          if (json.success && json.data) {
-            resultData = json.data;
+          if (json && (json.data || json.candidates)) {
+            resultData = json.data || json;
             break;
           }
         }
-      } catch (err) {
-        // Continue to next endpoint
+      } catch (e) {
+        // Continue to next candidate
       }
     }
   }
@@ -551,7 +262,7 @@ async function fetchResults(isManual = false) {
       showToast(state.currentLanguage === 'ta' ? 'முடிவுகள் புதுப்பிக்கப்பட்டன!' : 'Live results updated!');
     }
   } else {
-    // Fallback: Use currently displayed snapshot
+    // If running offline or disconnected, keep existing state active
     dom.lastSyncText.textContent = state.currentLanguage === 'ta' ? 'இணைக்கப்பட்டுள்ளது' : 'Live Sync Active';
   }
 
@@ -563,6 +274,7 @@ async function fetchResults(isManual = false) {
 
 // Check for updates & render
 function handleDataUpdate(newData) {
+  // Check if round or votes changed
   let hasRoundChanged = state.previousRound && newData.currentRound !== state.previousRound;
   let leaderChanged = false;
 
@@ -574,7 +286,7 @@ function handleDataUpdate(newData) {
 
   if (hasRoundChanged || leaderChanged) {
     playNotificationChime();
-    const roundMsg = state.currentLanguage === 'ta' 
+    const roundMsg = state.currentLanguage === 'ta'
       ? `சுற்று ${newData.currentRound} முடிவுகள் வெளியிடப்பட்டன! ${newData.leadingCandidate.name} முன்னிலை!`
       : `Round ${newData.currentRound} declared! ${newData.leadingCandidate.name} leading!`;
     showToast(roundMsg);
@@ -620,7 +332,6 @@ function renderDashboard() {
     dom.leaderVotes.textContent = formatNumber(leader.votes);
     dom.leaderMargin.textContent = leader.margin || `+${formatNumber(leadMarginNum)}`;
     dom.leaderPercentage.textContent = `${leader.votePercentage}%`;
-    
     if (leader.img) {
       dom.leaderPhoto.src = leader.img;
       dom.dockLeaderImg.src = leader.img;
@@ -656,7 +367,7 @@ function renderTopContenders(top3) {
       <div class="contender-card rank-${rank}">
         <div class="contender-top">
           <div class="contender-photo-wrap">
-            <img src="${c.img || DEFAULT_AVATAR}" alt="${c.name}" class="contender-img" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${DEFAULT_AVATAR}';">
+            <img src="${c.img || 'https://results.eci.gov.in/ResultAcByeOct2026/img/user-ifo.png'}" alt="${c.name}" class="contender-img" onerror="this.src='https://results.eci.gov.in/ResultAcByeOct2026/img/user-ifo.png'">
             <span class="contender-rank-badge">#${rank}</span>
           </div>
           <div class="contender-info">
@@ -687,6 +398,7 @@ function renderTopContenders(top3) {
 function renderVoteShareBar(candidates, totalVotes) {
   if (!candidates || candidates.length === 0 || totalVotes === 0) return;
 
+  // Group top 4 + others
   const top4 = candidates.slice(0, 4);
   const remaining = candidates.slice(4);
   const othersVotes = remaining.reduce((sum, c) => sum + c.votes, 0);
@@ -730,12 +442,14 @@ function renderCandidatesList() {
   const filter = state.currentFilter;
 
   let filtered = candidates.filter(c => {
+    // Search query match
     if (query) {
       const matchName = c.name.toLowerCase().includes(query);
       const matchParty = c.party.toLowerCase().includes(query) || c.partyCode.toLowerCase().includes(query);
       if (!matchName && !matchParty) return false;
     }
 
+    // Filter pill match
     if (filter === 'top5') return c.rank <= 5;
     if (filter === 'recognized') return ['AIADMK', 'TVK', 'DMK', 'NTK', 'CPI', 'BJP', 'INC'].includes(c.partyCode);
     if (filter === 'ind') return c.partyCode === 'IND';
@@ -765,7 +479,7 @@ function renderCandidatesList() {
       <div class="cand-card ${isLeading ? 'is-leading' : ''}">
         <div class="cand-card-main">
           <div class="cand-avatar-wrap">
-            <img src="${c.img || DEFAULT_AVATAR}" alt="${c.name}" class="cand-avatar" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${DEFAULT_AVATAR}';">
+            <img src="${c.img || 'https://results.eci.gov.in/ResultAcByeOct2026/img/user-ifo.png'}" alt="${c.name}" class="cand-avatar" onerror="this.src='https://results.eci.gov.in/ResultAcByeOct2026/img/user-ifo.png'">
             <span class="cand-rank">${c.rank}</span>
           </div>
           <div class="cand-meta">
@@ -806,6 +520,7 @@ function startCountdownTimer() {
     state.countdown--;
     dom.countdownSeconds.textContent = state.countdown;
 
+    // Stroke Dasharray: 100 * (countdown / 60)
     const pct = Math.max(0, (state.countdown / 60) * 100);
     dom.timerProgress.setAttribute('stroke-dasharray', `${pct}, 100`);
 
@@ -828,11 +543,13 @@ function switchLanguage() {
   const lang = state.currentLanguage;
   const t = i18n[lang];
 
+  // Update static labels with data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[key]) el.textContent = t[key];
   });
 
+  // Toggle button styling
   const enSpan = dom.langToggleBtn.querySelector('.lang-en');
   const taSpan = dom.langToggleBtn.querySelector('.lang-ta');
   if (lang === 'ta') {
@@ -845,6 +562,7 @@ function switchLanguage() {
     document.body.style.fontFamily = 'var(--font-body)';
   }
 
+  // Re-render dynamic parts
   if (state.data) renderDashboard();
 }
 
@@ -884,10 +602,17 @@ function toggleSound() {
 
 // Setup Event Listeners
 function initEventListeners() {
+  // Refresh Buttons
   dom.manualRefreshBtn.addEventListener('click', () => fetchResults(true));
   dom.dockRefreshBtn.addEventListener('click', () => fetchResults(true));
+
+  // Sound Toggle
   dom.soundToggleBtn.addEventListener('click', toggleSound);
+
+  // Language Toggle
   dom.langToggleBtn.addEventListener('click', switchLanguage);
+
+  // Theme Toggle
   dom.themeToggleBtn.addEventListener('click', switchTheme);
 
   // Search Input
@@ -928,15 +653,15 @@ function initEventListeners() {
   });
 }
 
-// Initial Bootstrapping: Instantly render without waiting!
+// Initial Bootstrapping
 function init() {
+  // Load saved theme
   const savedTheme = localStorage.getItem('tn_election_theme');
   if (savedTheme && savedTheme !== state.theme) {
     switchTheme();
   }
 
   initEventListeners();
-  renderDashboard(); // Render immediately with snapshot!
   startCountdownTimer();
   fetchResults(false);
 }
