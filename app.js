@@ -1,13 +1,685 @@
 /**
  * Tamil Nadu Bye-Election 2026 Live Dashboard
- * Real-time 1-minute auto-refresh with client-side failover
+ * Multi-Constituency Live Counting (101 - Dharapuram & 35 - Madurantakam)
  */
 
-// State Management
+// Fallback Snapshots for Instant 0ms Rendering & Offline Support
+const FALLBACK_CONSTITUENCIES = {
+  "35": {
+    "success": true,
+    "electionTitle": "Bye Election to Assembly Constituencies: Results October-2026",
+    "constituency": "35 - MADURANTAKAM (Tamil Nadu)",
+    "currentRound": 5,
+    "totalRounds": 21,
+    "roundProgress": 24,
+    "lastUpdated": "11:33 am On 09/10/2026",
+    "timestamp": "2026-10-09T06:05:02.293Z",
+    "totalVotesCounted": 47941,
+    "leadMargin": 6238,
+    "leadingCandidate": {
+      "name": "K.MARAGATHAM KUMARAVEL",
+      "party": "Tamilaga Vettri Kazhagam",
+      "partyCode": "TVK",
+      "votes": 20067,
+      "margin": "+ 6238",
+      "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KMARA-2026-20260915072201.jpg",
+      "votePercentage": "41.86"
+    },
+    "candidates": [
+      {
+        "id": 1,
+        "name": "K.MARAGATHAM KUMARAVEL",
+        "party": "Tamilaga Vettri Kazhagam",
+        "partyCode": "TVK",
+        "votes": 20067,
+        "margin": "+ 6238",
+        "status": "leading",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KMARA-2026-20260915072201.jpg",
+        "rank": 1,
+        "votePercentage": "41.86"
+      },
+      {
+        "id": 2,
+        "name": "I.PARANTHAMEN",
+        "party": "Dravida Munnetra Kazhagam",
+        "partyCode": "DMK",
+        "votes": 13829,
+        "margin": "-6238",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/IPARA-2026-20260919051148.jpg",
+        "rank": 2,
+        "votePercentage": "28.85"
+      },
+      {
+        "id": 3,
+        "name": "S.KANITHASAMPATH",
+        "party": "All India Anna Dravida Munnetra Kazhagam",
+        "partyCode": "AIADMK",
+        "votes": 11442,
+        "margin": "-8625",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/SKANI-2026-20260919051229.jpg",
+        "rank": 3,
+        "votePercentage": "23.87"
+      },
+      {
+        "id": 4,
+        "name": "G.JANAKIRAMAN",
+        "party": "Naam Tamilar Katchi",
+        "partyCode": "NTK",
+        "votes": 799,
+        "margin": "-19268",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/GJANA-2026-20260919065737.jpg",
+        "rank": 4,
+        "votePercentage": "1.67"
+      },
+      {
+        "id": 5,
+        "name": "SUGANTHI.P",
+        "party": "Communist Party of India (Marxist)",
+        "partyCode": "CPI",
+        "votes": 621,
+        "margin": "-19446",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SUGAN-2026-20260916074258.jpg",
+        "rank": 5,
+        "votePercentage": "1.30"
+      },
+      {
+        "id": 6,
+        "name": "KRISHNAKANTH.E",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 275,
+        "margin": "-19792",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KRISH-2026-20260916023751.jpg",
+        "rank": 6,
+        "votePercentage": "0.57"
+      },
+      {
+        "id": 28,
+        "name": "NOTA",
+        "party": "None of the Above",
+        "partyCode": "NOTA",
+        "votes": 156,
+        "margin": "-19911",
+        "status": "nota",
+        "img": "https://results.eci.gov.in/ResultAcByeOct2026/img/nota.jpg",
+        "rank": 7,
+        "votePercentage": "0.33"
+      },
+      {
+        "id": 7,
+        "name": "P.N.R.BASKARAN",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 125,
+        "margin": "-19942",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/PNRBA-2026-20260916064922.jpg",
+        "rank": 8,
+        "votePercentage": "0.26"
+      },
+      {
+        "id": 8,
+        "name": "NAVINDAR.V",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 100,
+        "margin": "-19967",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/NAVIN-2026-20260916010828.jpg",
+        "rank": 9,
+        "votePercentage": "0.21"
+      },
+      {
+        "id": 9,
+        "name": "KAYALVIZHI",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 93,
+        "margin": "-19974",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/KAYAL-2026-20260919051259.jpg",
+        "rank": 10,
+        "votePercentage": "0.19"
+      },
+      {
+        "id": 10,
+        "name": "EZHIL.E",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 54,
+        "margin": "-20013",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/EZHIL-2026-20260916025945.jpg",
+        "rank": 11,
+        "votePercentage": "0.11"
+      },
+      {
+        "id": 11,
+        "name": "K.ELAIYARASU",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 47,
+        "margin": "-20020",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KELAI-2026-20260916062316.jpg",
+        "rank": 12,
+        "votePercentage": "0.10"
+      },
+      {
+        "id": 12,
+        "name": "RAJAMANI",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 43,
+        "margin": "-20024",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/RAJAM-2026-20260919034619.jpg",
+        "rank": 13,
+        "votePercentage": "0.09"
+      },
+      {
+        "id": 13,
+        "name": "M.MANOKAR",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 32,
+        "margin": "-20035",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MMANO-2026-20260916054749.jpg",
+        "rank": 14,
+        "votePercentage": "0.07"
+      },
+      {
+        "id": 14,
+        "name": "RANJITHAM.M",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 31,
+        "margin": "-20036",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RANJI-2026-20260910021100.jpg",
+        "rank": 15,
+        "votePercentage": "0.06"
+      },
+      {
+        "id": 15,
+        "name": "N.SATHIS KUMAR",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 29,
+        "margin": "-20038",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/NSATH-2026-20260915071058.jpg",
+        "rank": 16,
+        "votePercentage": "0.06"
+      },
+      {
+        "id": 16,
+        "name": "DR.G.MOORTHY",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 28,
+        "margin": "-20039",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/GMOOR-2026-20260919051332.jpg",
+        "rank": 17,
+        "votePercentage": "0.06"
+      },
+      {
+        "id": 17,
+        "name": "M.KADIRVEL",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 24,
+        "margin": "-20043",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/MKADI-2026-20260919051704.jpg",
+        "rank": 18,
+        "votePercentage": "0.05"
+      },
+      {
+        "id": 18,
+        "name": "S.MURUGAN",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 24,
+        "margin": "-20043",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SMURU-2026-20260916071006.jpg",
+        "rank": 19,
+        "votePercentage": "0.05"
+      },
+      {
+        "id": 19,
+        "name": "LOGESH.K",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 22,
+        "margin": "-20045",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/LOGES-2026-20260916031726.jpg",
+        "rank": 20,
+        "votePercentage": "0.05"
+      },
+      {
+        "id": 20,
+        "name": "K.BHUVANESWARI",
+        "party": "Anaithinthiya Anna Dravida Makkal Seyal katchi",
+        "partyCode": "OTH",
+        "votes": 20,
+        "margin": "-20047",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KBHUV-2026-20260911043509.jpg",
+        "rank": 21,
+        "votePercentage": "0.04"
+      },
+      {
+        "id": 21,
+        "name": "S.ARUMUGAM",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 19,
+        "margin": "-20048",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SARUM-2026-20260916060952.jpg",
+        "rank": 22,
+        "votePercentage": "0.04"
+      },
+      {
+        "id": 22,
+        "name": "V.MUTHUSELVAM",
+        "party": "Anti Corruption Dynamic Party",
+        "partyCode": "OTH",
+        "votes": 15,
+        "margin": "-20052",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/VMUTH-2026-20260916041406.jpg",
+        "rank": 23,
+        "votePercentage": "0.03"
+      },
+      {
+        "id": 23,
+        "name": "G.RAJASEKAR",
+        "party": "Desiya Makkal Sakthi Katchi",
+        "partyCode": "OTH",
+        "votes": 12,
+        "margin": "-20055",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/GRAJA-2026-20260915060249.jpg",
+        "rank": 24,
+        "votePercentage": "0.03"
+      },
+      {
+        "id": 24,
+        "name": "M.JEGAN",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 11,
+        "margin": "-20056",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MJEGA-2026-20260916034026.jpg",
+        "rank": 25,
+        "votePercentage": "0.02"
+      },
+      {
+        "id": 25,
+        "name": "J.RAVIKUMAR",
+        "party": "Republican Party of India (Sivaraj)",
+        "partyCode": "OTH",
+        "votes": 9,
+        "margin": "-20058",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/JRAVI-2026-20260915073040.jpg",
+        "rank": 26,
+        "votePercentage": "0.02"
+      },
+      {
+        "id": 26,
+        "name": "M.G.RAMU",
+        "party": "Jebamani Janata",
+        "partyCode": "OTH",
+        "votes": 8,
+        "margin": "-20059",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MGRAM-2026-20260916051126.jpg",
+        "rank": 27,
+        "votePercentage": "0.02"
+      },
+      {
+        "id": 27,
+        "name": "K.ARUMUGAM",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 6,
+        "margin": "-20061",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KARUM-2026-20260916082552.jpg",
+        "rank": 28,
+        "votePercentage": "0.01"
+      }
+    ],
+    "acId": "35",
+    "acName": "Madurantakam",
+    "sourceUrl": "https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S2235.htm",
+    "fetchedAt": "2026-10-09T06:05:02.295Z"
+  },
+  "101": {
+    "success": true,
+    "electionTitle": "Bye Election to Assembly Constituencies: Results October-2026",
+    "constituency": "101 - DHARAPURAM (Tamil Nadu)",
+    "currentRound": 9,
+    "totalRounds": 23,
+    "roundProgress": 39,
+    "lastUpdated": "11:33 am On 09/10/2026",
+    "timestamp": "2026-10-09T06:05:02.699Z",
+    "totalVotesCounted": 70277,
+    "leadMargin": 2112,
+    "leadingCandidate": {
+      "name": "SATHYABAMA.P",
+      "party": "Tamilaga Vettri Kazhagam",
+      "partyCode": "TVK",
+      "votes": 24047,
+      "margin": "+ 2112",
+      "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHY-2026-20260916071322.jpg",
+      "votePercentage": "34.22"
+    },
+    "candidates": [
+      {
+        "id": 1,
+        "name": "SATHYABAMA.P",
+        "party": "Tamilaga Vettri Kazhagam",
+        "partyCode": "TVK",
+        "votes": 24047,
+        "margin": "+ 2112",
+        "status": "leading",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHY-2026-20260916071322.jpg",
+        "rank": 1,
+        "votePercentage": "34.22"
+      },
+      {
+        "id": 2,
+        "name": "BANUMATHI.K",
+        "party": "All India Anna Dravida Munnetra Kazhagam",
+        "partyCode": "AIADMK",
+        "votes": 21935,
+        "margin": "-2112",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUM-2026-20260916092540.jpg",
+        "rank": 2,
+        "votePercentage": "31.21"
+      },
+      {
+        "id": 3,
+        "name": "SUGANYA.S",
+        "party": "Dravida Munnetra Kazhagam",
+        "partyCode": "DMK",
+        "votes": 19972,
+        "margin": "-4075",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SUGAN-2026-20260915042839.jpg",
+        "rank": 3,
+        "votePercentage": "28.42"
+      },
+      {
+        "id": 4,
+        "name": "KARTHIKA.M",
+        "party": "Naam Tamilar Katchi",
+        "partyCode": "NTK",
+        "votes": 1891,
+        "margin": "-22156",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KARTH-2026-20260916090419.jpg",
+        "rank": 4,
+        "votePercentage": "2.69"
+      },
+      {
+        "id": 5,
+        "name": "LAKSHMANAN.P",
+        "party": "Communist Party of India",
+        "partyCode": "CPI",
+        "votes": 442,
+        "margin": "-23605",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/LAKSH-2026-20260916072443.jpg",
+        "rank": 5,
+        "votePercentage": "0.63"
+      },
+      {
+        "id": 6,
+        "name": "RAJARATHINAM.S",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 312,
+        "margin": "-23735",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RAJAR-2026-20260915062944.jpg",
+        "rank": 6,
+        "votePercentage": "0.44"
+      },
+      {
+        "id": 23,
+        "name": "NOTA",
+        "party": "None of the Above",
+        "partyCode": "NOTA",
+        "votes": 258,
+        "margin": "-23789",
+        "status": "nota",
+        "img": "https://results.eci.gov.in/ResultAcByeOct2026/img/nota.jpg",
+        "rank": 7,
+        "votePercentage": "0.37"
+      },
+      {
+        "id": 7,
+        "name": "MUTHUSAMY.P",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 171,
+        "margin": "-23876",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/MUTHU-2026-20260916064743.jpg",
+        "rank": 8,
+        "votePercentage": "0.24"
+      },
+      {
+        "id": 8,
+        "name": "MARIMUTHU.N",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 167,
+        "margin": "-23880",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MARIM-2026-20260916074606.jpg",
+        "rank": 9,
+        "votePercentage": "0.24"
+      },
+      {
+        "id": 9,
+        "name": "BANUPRIYA.S",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 153,
+        "margin": "-23894",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUP-2026-20260915062542.jpg",
+        "rank": 10,
+        "votePercentage": "0.22"
+      },
+      {
+        "id": 10,
+        "name": "SATHISHKUMAR.M",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 125,
+        "margin": "-23922",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHI-2026-20260915051952.jpg",
+        "rank": 11,
+        "votePercentage": "0.18"
+      },
+      {
+        "id": 11,
+        "name": "PERUMAL.R",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 116,
+        "margin": "-23931",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/PERUM-2026-20260916101543.jpg",
+        "rank": 12,
+        "votePercentage": "0.17"
+      },
+      {
+        "id": 12,
+        "name": "BANUMATHI.C",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 107,
+        "margin": "-23940",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUM-2026-20260916081040.jpg",
+        "rank": 13,
+        "votePercentage": "0.15"
+      },
+      {
+        "id": 13,
+        "name": "NALLASAMY.P",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 102,
+        "margin": "-23945",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/NALLA-2026-20260915070306.jpg",
+        "rank": 14,
+        "votePercentage": "0.15"
+      },
+      {
+        "id": 14,
+        "name": "MAHENDRAN.S",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 97,
+        "margin": "-23950",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MAHEN-2026-20260916073046.jpg",
+        "rank": 15,
+        "votePercentage": "0.14"
+      },
+      {
+        "id": 15,
+        "name": "DHANALAKSHMI.S",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 70,
+        "margin": "-23977",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/DHANA-2026-20260916082805.jpg",
+        "rank": 16,
+        "votePercentage": "0.10"
+      },
+      {
+        "id": 16,
+        "name": "SATHYABAMA.M",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 59,
+        "margin": "-23988",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHY-2026-20260915063438.jpg",
+        "rank": 17,
+        "votePercentage": "0.08"
+      },
+      {
+        "id": 17,
+        "name": "RAJESHWARI.V",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 58,
+        "margin": "-23989",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RAJES-2026-20260915061746.jpg",
+        "rank": 18,
+        "votePercentage": "0.08"
+      },
+      {
+        "id": 18,
+        "name": "ARULRAJU.G",
+        "party": "Anaithinthiya Anna Dravida Makkal Seyal katchi",
+        "partyCode": "OTH",
+        "votes": 53,
+        "margin": "-23994",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/ARULR-2026-20260916085704.jpg",
+        "rank": 19,
+        "votePercentage": "0.08"
+      },
+      {
+        "id": 19,
+        "name": "JOTHEESHWARI.D",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 52,
+        "margin": "-23995",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/JOTHE-2026-20260915063915.jpg",
+        "rank": 20,
+        "votePercentage": "0.07"
+      },
+      {
+        "id": 20,
+        "name": "ARUMUGAM.R",
+        "party": "Ganasangam Party of India",
+        "partyCode": "OTH",
+        "votes": 36,
+        "margin": "-24011",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/ARUMU-2026-20260916103127.jpg",
+        "rank": 21,
+        "votePercentage": "0.05"
+      },
+      {
+        "id": 21,
+        "name": "SASIPRIYA.S",
+        "party": "Independent",
+        "partyCode": "IND",
+        "votes": 28,
+        "margin": "-24019",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SASIP-2026-20260915062213.jpg",
+        "rank": 22,
+        "votePercentage": "0.04"
+      },
+      {
+        "id": 22,
+        "name": "MAHESHWARAN.S",
+        "party": "Anti Corruption Dynamic Party",
+        "partyCode": "OTH",
+        "votes": 26,
+        "margin": "-24021",
+        "status": "trailing",
+        "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MAHES-2026-20260915051407.jpg",
+        "rank": 23,
+        "votePercentage": "0.04"
+      }
+    ],
+    "acId": "101",
+    "acName": "Dharapuram",
+    "sourceUrl": "https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm",
+    "fetchedAt": "2026-10-09T06:05:02.699Z"
+  }
+};
+
+// Global State
 const state = {
-  data: null,
+  activeAc: '101', // '101' or '35'
+  constituencies: FALLBACK_CONSTITUENCIES,
+  data: FALLBACK_CONSTITUENCIES['101'] || Object.values(FALLBACK_CONSTITUENCIES)[0],
   previousVotes: {},
-  previousRound: 0,
+  previousRound: {},
   countdown: 60,
   timerInterval: null,
   isFetching: false,
@@ -49,7 +721,9 @@ const i18n = {
     search_placeholder: 'Search candidate or party...',
     votes: 'votes',
     synced_just_now: 'Synced just now',
-    synced_secs_ago: 'Synced {s}s ago'
+    synced_secs_ago: 'Synced {s}s ago',
+    ac_101_name: 'Dharapuram',
+    ac_35_name: 'Madurantakam'
   },
   ta: {
     live: 'நேரலை வாக்கு எண்ணிக்கை',
@@ -80,7 +754,9 @@ const i18n = {
     search_placeholder: 'வேட்பாளர் அல்லது கட்சியைத் தேடுக...',
     votes: 'வாக்குகள்',
     synced_just_now: 'இப்போது புதுப்பிக்கப்பட்டது',
-    synced_secs_ago: '{s} விநாடிகளுக்கு முன்'
+    synced_secs_ago: '{s} விநாடிகளுக்கு முன்',
+    ac_101_name: 'தாராபுரம்',
+    ac_35_name: 'மதுராந்தகம்'
   }
 };
 
@@ -95,6 +771,9 @@ const PARTY_THEMES = {
   NOTA: { color: '#64748b', bg: 'rgba(100, 116, 139, 0.15)', nameTa: 'நோட்டா' }
 };
 
+// Fallback Avatar SVG
+const DEFAULT_AVATAR = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 24 24" fill="%2364748b"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
+
 // DOM Element References
 const dom = {
   electionTitle: document.getElementById('electionTitle'),
@@ -108,6 +787,12 @@ const dom = {
   soundToggleBtn: document.getElementById('soundToggleBtn'),
   langToggleBtn: document.getElementById('langToggleBtn'),
   themeToggleBtn: document.getElementById('themeToggleBtn'),
+
+  // Constituency Switcher Tabs
+  tabAc101: document.getElementById('tabAc101'),
+  tabAc35: document.getElementById('tabAc35'),
+  subtagAc101: document.getElementById('subtagAc101'),
+  subtagAc35: document.getElementById('subtagAc35'),
 
   // Leader Spotlight
   spotlightRoundNum: document.getElementById('spotlightRoundNum'),
@@ -152,43 +837,34 @@ const dom = {
   toastMessage: document.getElementById('toastMessage')
 };
 
-// Helper: Format Numbers with commas
 function formatNumber(num) {
   if (num === null || num === undefined) return '0';
   return Number(num).toLocaleString('en-IN');
 }
 
-// Sound Synthesizer via Web Audio API (No external sound files required)
 function playNotificationChime() {
   if (!state.soundEnabled) return;
   try {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return;
     const ctx = new AudioContext();
-
-    // Smooth pleasant two-tone election chime (E5 -> G5)
-    const osc1 = ctx.createOscillator();
-    const osc2 = ctx.createOscillator();
+    const osc = ctx.createOscillator();
     const gain = ctx.createGain();
 
-    osc1.type = 'sine';
-    osc1.frequency.setValueAtTime(659.25, ctx.currentTime); // E5
-    osc1.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.15); // G5
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(659.25, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(783.99, ctx.currentTime + 0.15);
 
     gain.gain.setValueAtTime(0.08, ctx.currentTime);
     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
 
-    osc1.connect(gain);
+    osc.connect(gain);
     gain.connect(ctx.destination);
-
-    osc1.start();
-    osc1.stop(ctx.currentTime + 0.4);
-  } catch (e) {
-    // Audio context may be restricted before user gesture
-  }
+    osc.start();
+    osc.stop(ctx.currentTime + 0.4);
+  } catch (e) {}
 }
 
-// Show Toast Message
 function showToast(message) {
   dom.toastMessage.textContent = message;
   dom.toastNotification.classList.add('show');
@@ -197,7 +873,59 @@ function showToast(message) {
   }, 3500);
 }
 
-// Universal Fetch Engine (Works on ANY port, ANY live website, GitHub Pages, and Localhost)
+// Switch Active Constituency Tab
+function switchConstituency(acId) {
+  if (!state.constituencies[acId]) return;
+  state.activeAc = acId;
+  state.data = state.constituencies[acId];
+
+  // Update Tab Button States
+  if (dom.tabAc101) {
+    const is101 = acId === '101';
+    dom.tabAc101.classList.toggle('active', is101);
+    dom.tabAc101.setAttribute('aria-selected', is101);
+  }
+  if (dom.tabAc35) {
+    const is35 = acId === '35';
+    dom.tabAc35.classList.toggle('active', is35);
+    dom.tabAc35.setAttribute('aria-selected', is35);
+  }
+
+  // Update URL hash without scroll jump
+  if (history.replaceState) {
+    history.replaceState(null, '', '#' + acId);
+  } else {
+    window.location.hash = acId;
+  }
+
+  // Reset search filter
+  state.searchQuery = '';
+  if (dom.candidateSearchInput) dom.candidateSearchInput.value = '';
+  if (dom.clearSearchBtn) dom.clearSearchBtn.classList.add('hidden');
+
+  renderDashboard();
+}
+
+// Update Preview Subtags on Constituency Tabs
+function updateConstituencyTabs() {
+  const c101 = state.constituencies['101'];
+  if (c101 && dom.subtagAc101) {
+    const leader = c101.leadingCandidate;
+    const party = leader ? leader.partyCode : 'Lead';
+    const margin = leader && leader.margin ? leader.margin : '';
+    dom.subtagAc101.textContent = `${party} Lead (${margin}) • R${c101.currentRound}/${c101.totalRounds}`;
+  }
+
+  const c35 = state.constituencies['35'];
+  if (c35 && dom.subtagAc35) {
+    const leader = c35.leadingCandidate;
+    const party = leader ? leader.partyCode : 'Lead';
+    const margin = leader && leader.margin ? leader.margin : '';
+    dom.subtagAc35.textContent = `${party} Lead (${margin}) • R${c35.currentRound}/${c35.totalRounds}`;
+  }
+}
+
+// Fetch Engine (Supports Multi-Constituency API and static data.json)
 async function fetchResults(isManual = false) {
   if (state.isFetching) return;
   state.isFetching = true;
@@ -207,32 +935,30 @@ async function fetchResults(isManual = false) {
     dom.dockRefreshBtn.classList.add('loading');
   }
 
-  let resultData = null;
+  let freshConstituencies = null;
 
-  // 1. Live API Candidates (relative to current host, protocol, and port)
-  const apiCandidates = [
-    './api/results',
-    'api/results',
-    '/api/results'
-  ];
-
+  // 1. Live API Candidates
+  const apiCandidates = ['./api/results', 'api/results', '/api/results'];
   for (const ep of apiCandidates) {
     try {
       const res = await fetch(ep, { cache: 'no-store' });
       if (res.ok) {
         const json = await res.json();
-        if (json && json.success && json.data) {
-          resultData = json.data;
-          break;
+        if (json && json.success) {
+          if (json.constituencies) {
+            freshConstituencies = json.constituencies;
+            break;
+          } else if (json.data) {
+            freshConstituencies = { [state.activeAc]: json.data };
+            break;
+          }
         }
       }
-    } catch (e) {
-      // Continue to next candidate
-    }
+    } catch (e) {}
   }
 
-  // 2. Static Data Feed Candidates (for GitHub Pages, Cloudflare Pages, S3, etc.)
-  if (!resultData) {
+  // 2. Static Data Feed Candidates (data.json for GitHub Pages)
+  if (!freshConstituencies) {
     const dataCandidates = [
       `./data.json?_t=${Date.now()}`,
       `data.json?_t=${Date.now()}`,
@@ -244,25 +970,24 @@ async function fetchResults(isManual = false) {
         const res = await fetch(dUrl, { cache: 'no-store' });
         if (res.ok) {
           const json = await res.json();
-          if (json && (json.data || json.candidates)) {
-            resultData = json.data || json;
+          if (json && json.constituencies) {
+            freshConstituencies = json.constituencies;
+            break;
+          } else if (json && json.data) {
+            freshConstituencies = { [state.activeAc]: json.data };
             break;
           }
         }
-      } catch (e) {
-        // Continue to next candidate
-      }
+      } catch (e) {}
     }
   }
 
-  // Handle Fetch Result
-  if (resultData) {
-    handleDataUpdate(resultData);
+  if (freshConstituencies) {
+    handleDataUpdate(freshConstituencies);
     if (isManual) {
       showToast(state.currentLanguage === 'ta' ? 'முடிவுகள் புதுப்பிக்கப்பட்டன!' : 'Live results updated!');
     }
   } else {
-    // If running offline or disconnected, keep existing state active
     dom.lastSyncText.textContent = state.currentLanguage === 'ta' ? 'இணைக்கப்பட்டுள்ளது' : 'Live Sync Active';
   }
 
@@ -272,29 +997,29 @@ async function fetchResults(isManual = false) {
   resetCountdown();
 }
 
-// Check for updates & render
-function handleDataUpdate(newData) {
-  // Check if round or votes changed
-  let hasRoundChanged = state.previousRound && newData.currentRound !== state.previousRound;
-  let leaderChanged = false;
+function handleDataUpdate(newConstituencies) {
+  // Check for updates in active constituency
+  const activeNew = newConstituencies[state.activeAc] || Object.values(newConstituencies)[0];
+  const oldActive = state.data;
 
-  if (state.data && state.data.leadingCandidate && newData.leadingCandidate) {
-    if (state.data.leadingCandidate.name !== newData.leadingCandidate.name) {
-      leaderChanged = true;
-    }
+  let hasRoundChanged = false;
+  if (oldActive && activeNew && activeNew.currentRound !== oldActive.currentRound) {
+    hasRoundChanged = true;
   }
 
-  if (hasRoundChanged || leaderChanged) {
+  if (hasRoundChanged) {
     playNotificationChime();
     const roundMsg = state.currentLanguage === 'ta'
-      ? `சுற்று ${newData.currentRound} முடிவுகள் வெளியிடப்பட்டன! ${newData.leadingCandidate.name} முன்னிலை!`
-      : `Round ${newData.currentRound} declared! ${newData.leadingCandidate.name} leading!`;
+      ? `சுற்று ${activeNew.currentRound} முடிவுகள்: ${activeNew.constituency} - ${activeNew.leadingCandidate.name} முன்னிலை!`
+      : `Round ${activeNew.currentRound} declared: ${activeNew.constituency} - ${activeNew.leadingCandidate.name} leading!`;
     showToast(roundMsg);
   }
 
-  state.previousRound = newData.currentRound;
-  state.data = newData;
+  // Merge constituencies
+  state.constituencies = { ...state.constituencies, ...newConstituencies };
+  state.data = state.constituencies[state.activeAc] || activeNew;
 
+  updateConstituencyTabs();
   renderDashboard();
 }
 
@@ -306,6 +1031,12 @@ function renderDashboard() {
   const t = i18n[lang];
 
   // Title & Headers
+  if (dom.constituencyTitle) {
+    dom.constituencyTitle.innerHTML = `${d.constituency} <span>(Tamil Nadu)</span>`;
+  }
+  if (dom.electionTitle && d.electionTitle) {
+    dom.electionTitle.textContent = d.electionTitle;
+  }
   dom.eciLastUpdated.textContent = d.lastUpdated || 'Live';
   dom.lastSyncText.textContent = t.synced_just_now;
 
@@ -318,7 +1049,7 @@ function renderDashboard() {
 
   // Overview Counts
   dom.totalVotesCounted.textContent = formatNumber(d.totalVotesCounted);
-  dom.totalCandidatesCount.textContent = d.candidates.length;
+  dom.totalCandidatesCount.textContent = d.candidates ? d.candidates.length : 0;
 
   const leadMarginNum = d.leadMargin || 0;
   dom.overviewLeadMargin.textContent = `+${formatNumber(leadMarginNum)}`;
@@ -332,6 +1063,7 @@ function renderDashboard() {
     dom.leaderVotes.textContent = formatNumber(leader.votes);
     dom.leaderMargin.textContent = leader.margin || `+${formatNumber(leadMarginNum)}`;
     dom.leaderPercentage.textContent = `${leader.votePercentage}%`;
+
     if (leader.img) {
       dom.leaderPhoto.src = leader.img;
       dom.dockLeaderImg.src = leader.img;
@@ -344,17 +1076,19 @@ function renderDashboard() {
     dom.dockLeaderMargin.textContent = leader.margin || `+${formatNumber(leadMarginNum)}`;
   }
 
+  // Update tabs
+  updateConstituencyTabs();
+
   // Render Top 3 Contenders Battle
-  renderTopContenders(d.candidates.slice(0, 3));
+  renderTopContenders(d.candidates ? d.candidates.slice(0, 3) : []);
 
   // Render Vote Share Proportional Bar
-  renderVoteShareBar(d.candidates, d.totalVotesCounted);
+  renderVoteShareBar(d.candidates || [], d.totalVotesCounted);
 
   // Render Candidate Cards Grid
   renderCandidatesList();
 }
 
-// Render Top 3 Contenders
 function renderTopContenders(top3) {
   if (!top3 || top3.length === 0) return;
 
@@ -367,7 +1101,7 @@ function renderTopContenders(top3) {
       <div class="contender-card rank-${rank}">
         <div class="contender-top">
           <div class="contender-photo-wrap">
-            <img src="${c.img || 'https://results.eci.gov.in/ResultAcByeOct2026/img/user-ifo.png'}" alt="${c.name}" class="contender-img" onerror="this.src='https://results.eci.gov.in/ResultAcByeOct2026/img/user-ifo.png'">
+            <img src="${c.img || DEFAULT_AVATAR}" alt="${c.name}" class="contender-img" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${DEFAULT_AVATAR}';">
             <span class="contender-rank-badge">#${rank}</span>
           </div>
           <div class="contender-info">
@@ -394,11 +1128,9 @@ function renderTopContenders(top3) {
   dom.topContendersContainer.innerHTML = html;
 }
 
-// Render Vote Share Proportional Bar
 function renderVoteShareBar(candidates, totalVotes) {
   if (!candidates || candidates.length === 0 || totalVotes === 0) return;
 
-  // Group top 4 + others
   const top4 = candidates.slice(0, 4);
   const remaining = candidates.slice(4);
   const othersVotes = remaining.reduce((sum, c) => sum + c.votes, 0);
@@ -414,14 +1146,12 @@ function renderVoteShareBar(candidates, totalVotes) {
     });
   }
 
-  // Build Bar
   const barHtml = segments.map(s => {
     const theme = PARTY_THEMES[s.partyCode] || { color: '#94a3b8' };
     return `<div class="share-segment" style="width: ${s.votePercentage}%; background: ${theme.color};" data-tooltip="${s.partyCode}: ${s.votePercentage}% (${formatNumber(s.votes)})"></div>`;
   }).join('');
   dom.voteShareStackedBar.innerHTML = barHtml;
 
-  // Build Legend
   const legendHtml = segments.map(s => {
     const theme = PARTY_THEMES[s.partyCode] || { color: '#94a3b8' };
     return `
@@ -434,7 +1164,6 @@ function renderVoteShareBar(candidates, totalVotes) {
   dom.voteShareLegend.innerHTML = legendHtml;
 }
 
-// Render Candidate Cards Grid with Search and Filter
 function renderCandidatesList() {
   if (!state.data || !state.data.candidates) return;
   const candidates = state.data.candidates;
@@ -442,20 +1171,18 @@ function renderCandidatesList() {
   const filter = state.currentFilter;
 
   let filtered = candidates.filter(c => {
-    // Search query match
     if (query) {
       const matchName = c.name.toLowerCase().includes(query);
       const matchParty = c.party.toLowerCase().includes(query) || c.partyCode.toLowerCase().includes(query);
       if (!matchName && !matchParty) return false;
     }
 
-    // Filter pill match
     if (filter === 'top5') return c.rank <= 5;
     if (filter === 'recognized') return ['AIADMK', 'TVK', 'DMK', 'NTK', 'CPI', 'BJP', 'INC'].includes(c.partyCode);
     if (filter === 'ind') return c.partyCode === 'IND';
     if (filter === 'nota') return c.partyCode === 'NOTA';
 
-    return true; // 'all'
+    return true;
   });
 
   dom.candidateCountDisplay.textContent = `${filtered.length} Candidates`;
@@ -479,13 +1206,13 @@ function renderCandidatesList() {
       <div class="cand-card ${isLeading ? 'is-leading' : ''}">
         <div class="cand-card-main">
           <div class="cand-avatar-wrap">
-            <img src="${c.img || 'https://results.eci.gov.in/ResultAcByeOct2026/img/user-ifo.png'}" alt="${c.name}" class="cand-avatar" onerror="this.src='https://results.eci.gov.in/ResultAcByeOct2026/img/user-ifo.png'">
+            <img src="${c.img || DEFAULT_AVATAR}" alt="${c.name}" class="cand-avatar" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${DEFAULT_AVATAR}';">
             <span class="cand-rank">${c.rank}</span>
           </div>
           <div class="cand-meta">
             <div class="cand-meta-top">
               <span class="cand-party-pill ${partyClass}">${c.partyCode}</span>
-              ${isLeading ? `<span class="cand-margin-badge margin-positive">LEADING</span>` : ''}
+              ${isLeading ? '<span class="cand-margin-badge margin-positive">LEADING</span>' : ''}
             </div>
             <div class="cand-name-text" title="${c.name}">${c.name}</div>
             <div class="cand-party-fullname" title="${c.party}">${c.party}</div>
@@ -512,7 +1239,6 @@ function renderCandidatesList() {
   dom.candidatesGrid.innerHTML = html;
 }
 
-// Countdown Timer Engine (60s down to 0)
 function startCountdownTimer() {
   if (state.timerInterval) clearInterval(state.timerInterval);
 
@@ -520,7 +1246,6 @@ function startCountdownTimer() {
     state.countdown--;
     dom.countdownSeconds.textContent = state.countdown;
 
-    // Stroke Dasharray: 100 * (countdown / 60)
     const pct = Math.max(0, (state.countdown / 60) * 100);
     dom.timerProgress.setAttribute('stroke-dasharray', `${pct}, 100`);
 
@@ -537,19 +1262,16 @@ function resetCountdown() {
   dom.timerProgress.setAttribute('stroke-dasharray', '100, 100');
 }
 
-// Toggle Language (EN / TA)
 function switchLanguage() {
   state.currentLanguage = state.currentLanguage === 'en' ? 'ta' : 'en';
   const lang = state.currentLanguage;
   const t = i18n[lang];
 
-  // Update static labels with data-i18n
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
     if (t[key]) el.textContent = t[key];
   });
 
-  // Toggle button styling
   const enSpan = dom.langToggleBtn.querySelector('.lang-en');
   const taSpan = dom.langToggleBtn.querySelector('.lang-ta');
   if (lang === 'ta') {
@@ -562,11 +1284,9 @@ function switchLanguage() {
     document.body.style.fontFamily = 'var(--font-body)';
   }
 
-  // Re-render dynamic parts
   if (state.data) renderDashboard();
 }
 
-// Toggle Theme (Dark / Light)
 function switchTheme() {
   state.theme = state.theme === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', state.theme);
@@ -583,7 +1303,6 @@ function switchTheme() {
   }
 }
 
-// Toggle Sound Alerts
 function toggleSound() {
   state.soundEnabled = !state.soundEnabled;
   const onIcon = dom.soundToggleBtn.querySelector('.sound-on-icon');
@@ -600,20 +1319,28 @@ function toggleSound() {
   }
 }
 
-// Setup Event Listeners
 function initEventListeners() {
-  // Refresh Buttons
   dom.manualRefreshBtn.addEventListener('click', () => fetchResults(true));
   dom.dockRefreshBtn.addEventListener('click', () => fetchResults(true));
-
-  // Sound Toggle
   dom.soundToggleBtn.addEventListener('click', toggleSound);
-
-  // Language Toggle
   dom.langToggleBtn.addEventListener('click', switchLanguage);
-
-  // Theme Toggle
   dom.themeToggleBtn.addEventListener('click', switchTheme);
+
+  // Tab switcher
+  if (dom.tabAc101) {
+    dom.tabAc101.addEventListener('click', () => switchConstituency('101'));
+  }
+  if (dom.tabAc35) {
+    dom.tabAc35.addEventListener('click', () => switchConstituency('35'));
+  }
+
+  // Hash listener
+  window.addEventListener('hashchange', () => {
+    const hash = window.location.hash.replace('#', '').trim();
+    if (hash === '35' || hash === '101') {
+      switchConstituency(hash);
+    }
+  });
 
   // Search Input
   dom.candidateSearchInput.addEventListener('input', (e) => {
@@ -643,30 +1370,34 @@ function initEventListeners() {
     });
   });
 
-  // Keyboard shortcut: Press R to refresh
+  // Keyboard shortcut: Press R to refresh, 1/2 for constituency switch
   window.addEventListener('keydown', (e) => {
-    if (e.key === 'r' || e.key === 'R') {
-      if (document.activeElement.tagName !== 'INPUT') {
-        fetchResults(true);
-      }
-    }
+    if (document.activeElement.tagName === 'INPUT') return;
+    if (e.key === 'r' || e.key === 'R') fetchResults(true);
+    if (e.key === '1') switchConstituency('101');
+    if (e.key === '2') switchConstituency('35');
   });
 }
 
-// Initial Bootstrapping
 function init() {
-  // Load saved theme
   const savedTheme = localStorage.getItem('tn_election_theme');
   if (savedTheme && savedTheme !== state.theme) {
     switchTheme();
   }
 
+  // Check URL hash for constituency selection (#35 or #101)
+  const hash = window.location.hash.replace('#', '').trim();
+  if (hash === '35' || hash === '101') {
+    state.activeAc = hash;
+    state.data = state.constituencies[hash];
+  }
+
   initEventListeners();
+  switchConstituency(state.activeAc);
   startCountdownTimer();
   fetchResults(false);
 }
 
-// Run on DOM Ready
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
 } else {

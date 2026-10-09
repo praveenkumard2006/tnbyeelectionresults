@@ -26,43 +26,70 @@ function getRequestedPort() {
 }
 
 const INITIAL_PORT = getRequestedPort();
-const ECI_URL = 'https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm';
+const CONSTITUENCIES = {
+  '101': {
+    id: '101',
+    name: 'Dharapuram',
+    code: 'S22101',
+    url: 'https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm'
+  },
+  '35': {
+    id: '35',
+    name: 'Madurantakam',
+    code: 'S2235',
+    url: 'https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S2235.htm'
+  }
+};
 
-// In-memory cache
-let cachedData = null;
+// In-memory cache for all constituencies
+let cachedConstituencies = {};
 let lastFetchTime = 0;
 const CACHE_TTL_MS = 15 * 1000; // 15 seconds cache
 
-async function fetchEciData() {
+async function fetchAllConstituencies() {
   const now = Date.now();
-  if (cachedData && (now - lastFetchTime < CACHE_TTL_MS)) {
-    return cachedData;
+  if (Object.keys(cachedConstituencies).length > 0 && (now - lastFetchTime < CACHE_TTL_MS)) {
+    return cachedConstituencies;
   }
 
-  const response = await fetch(ECI_URL, {
-    headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-      'Accept-Language': 'en-US,en;q=0.9',
-      'Cache-Control': 'no-cache',
-      'Pragma': 'no-cache'
-    }
-  });
+  const results = {};
+  await Promise.all(
+    Object.entries(CONSTITUENCIES).map(async ([id, conf]) => {
+      try {
+        const response = await fetch(conf.url, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept-Language': 'en-US,en;q=0.9',
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache'
+          }
+        });
+        if (response.ok) {
+          const html = await response.text();
+          const parsed = parseEciHtml(html);
+          results[id] = {
+            ...parsed,
+            acId: id,
+            acName: conf.name,
+            sourceUrl: conf.url,
+            fetchedAt: new Date().toISOString()
+          };
+        }
+      } catch (err) {
+        console.error(`Error fetching AC ${id}:`, err.message);
+        if (cachedConstituencies[id]) {
+          results[id] = cachedConstituencies[id];
+        }
+      }
+    })
+  );
 
-  if (!response.ok) {
-    throw new Error(`ECI server returned HTTP ${response.status}`);
+  if (Object.keys(results).length > 0) {
+    cachedConstituencies = results;
+    lastFetchTime = now;
   }
-
-  const html = await response.text();
-  const parsed = parseEciHtml(html);
-
-  cachedData = {
-    ...parsed,
-    fetchedAt: new Date().toISOString(),
-    sourceUrl: ECI_URL
-  };
-  lastFetchTime = now;
-  return cachedData;
+  return cachedConstituencies;
 }
 
 // MIME types
@@ -94,25 +121,29 @@ const server = http.createServer(async (req, res) => {
   const protoHeader = req.headers['x-forwarded-proto'] || 'http';
   const parsedUrl = new URL(req.url, `${protoHeader}://${hostHeader}`);
   const pathname = parsedUrl.pathname;
+  const requestedAc = parsedUrl.searchParams.get('ac');
 
-  // Live API Endpoint (Supports exact /api/results or reverse-proxied subpaths like /subpath/api/results)
+  // Live API Endpoint (Supports /api/results and /api/results?ac=35 / ?ac=101)
   if (pathname === '/api/results' || pathname.endsWith('/api/results')) {
     try {
-      const data = await fetchEciData();
+      const allData = await fetchAllConstituencies();
+      const defaultData = requestedAc && allData[requestedAc]
+        ? allData[requestedAc]
+        : (allData['101'] || Object.values(allData)[0]);
+
       res.writeHead(200, {
         'Content-Type': 'application/json; charset=utf-8',
         'Cache-Control': 'no-cache, no-store, must-revalidate'
       });
-      res.end(JSON.stringify({ success: true, data }));
+      res.end(JSON.stringify({
+        success: true,
+        data: defaultData,
+        constituencies: allData
+      }));
     } catch (err) {
       console.error('Error fetching ECI data:', err.message);
-      if (cachedData) {
-        res.writeHead(200, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ success: true, data: cachedData, warning: 'Stale cache: ' + err.message }));
-      } else {
-        res.writeHead(502, { 'Content-Type': 'application/json; charset=utf-8' });
-        res.end(JSON.stringify({ success: false, error: err.message }));
-      }
+      res.writeHead(502, { 'Content-Type': 'application/json; charset=utf-8' });
+      res.end(JSON.stringify({ success: false, error: err.message }));
     }
     return;
   }

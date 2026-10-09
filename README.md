@@ -1,8 +1,8 @@
 # Tamil Nadu Bye-Election 2026 Live Dashboard 🗳️
 
-A modern, mobile-friendly, real-time live election results web application for Tamil Nadu Bye-Election (**101 - Dharapuram Assembly Constituency**).
-
-Live data source: [ECI Official Results Portal](https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm)
+A modern, mobile-friendly, real-time live election results web application tracking Tamil Nadu Bye-Elections:
+- **101 - Dharapuram (SC)**: [ECI Results S22101](https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm)
+- **35 - Madurantakam (SC)**: [ECI Results S2235](https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S2235.htm)
 
 ---
 
