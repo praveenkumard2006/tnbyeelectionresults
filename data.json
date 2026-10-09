@@ -1,26 +1,26 @@
 {
   "success": true,
-  "lastUpdated": "2026-10-09T12:06:01.517Z",
+  "lastUpdated": "2026-10-09T18:18:45.805Z",
   "constituencies": {
     "35": {
       "success": true,
       "electionTitle": "Bye Election to Assembly Constituencies: Results October-2026",
       "constituency": "35 - MADURANTAKAM (Tamil Nadu)",
-      "currentRound": 19,
+      "currentRound": 27,
       "totalRounds": 27,
-      "roundProgress": 70,
-      "lastUpdated": "05:33 pm On 09/10/2026",
-      "timestamp": "2026-10-09T12:06:00.721Z",
-      "totalVotesCounted": 169143,
-      "leadMargin": 18897,
+      "roundProgress": 100,
+      "lastUpdated": "11:06 pm On 09/10/2026",
+      "timestamp": "2026-10-09T18:18:44.723Z",
+      "totalVotesCounted": 185292,
+      "leadMargin": 20040,
       "leadingCandidate": {
         "name": "K.MARAGATHAM KUMARAVEL",
         "party": "Tamilaga Vettri Kazhagam",
         "partyCode": "TVK",
-        "votes": 68072,
-        "margin": "+ 18897",
+        "votes": 74048,
+        "margin": "+ 20040",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KMARA-2026-20260915072201.jpg",
-        "votePercentage": "40.25"
+        "votePercentage": "39.96"
       },
       "candidates": [
         {
@@ -28,57 +28,57 @@
           "name": "K.MARAGATHAM KUMARAVEL",
           "party": "Tamilaga Vettri Kazhagam",
           "partyCode": "TVK",
-          "votes": 68072,
-          "margin": "+ 18897",
+          "votes": 74048,
+          "margin": "+ 20040",
           "status": "leading",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KMARA-2026-20260915072201.jpg",
           "rank": 1,
-          "votePercentage": "40.25"
+          "votePercentage": "39.96"
         },
         {
           "id": 2,
           "name": "I.PARANTHAMEN",
           "party": "Dravida Munnetra Kazhagam",
           "partyCode": "DMK",
-          "votes": 49175,
-          "margin": "-18897",
-          "status": "trailing",
+          "votes": 54008,
+          "margin": "-20040",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/IPARA-2026-20260919051148.jpg",
           "rank": 2,
-          "votePercentage": "29.07"
+          "votePercentage": "29.15"
         },
         {
           "id": 3,
           "name": "S.KANITHASAMPATH",
           "party": "All India Anna Dravida Munnetra Kazhagam",
           "partyCode": "AIADMK",
-          "votes": 42941,
-          "margin": "-25131",
-          "status": "trailing",
+          "votes": 47450,
+          "margin": "-26598",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/SKANI-2026-20260919051229.jpg",
           "rank": 3,
-          "votePercentage": "25.39"
+          "votePercentage": "25.61"
         },
         {
           "id": 4,
           "name": "G.JANAKIRAMAN",
           "party": "Naam Tamilar Katchi",
           "partyCode": "NTK",
-          "votes": 2488,
-          "margin": "-65584",
-          "status": "trailing",
+          "votes": 2709,
+          "margin": "-71339",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/GJANA-2026-20260919065737.jpg",
           "rank": 4,
-          "votePercentage": "1.47"
+          "votePercentage": "1.46"
         },
         {
           "id": 5,
           "name": "SUGANTHI.P",
           "party": "Communist Party of India (Marxist)",
           "partyCode": "CPI",
-          "votes": 1811,
-          "margin": "-66261",
-          "status": "trailing",
+          "votes": 1986,
+          "margin": "-72062",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SUGAN-2026-20260916074258.jpg",
           "rank": 5,
           "votePercentage": "1.07"
@@ -88,33 +88,33 @@
           "name": "KRISHNAKANTH.E",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 936,
-          "margin": "-67136",
-          "status": "trailing",
+          "votes": 1004,
+          "margin": "-73044",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KRISH-2026-20260916023751.jpg",
           "rank": 6,
-          "votePercentage": "0.55"
+          "votePercentage": "0.54"
         },
         {
           "id": 28,
           "name": "NOTA",
           "party": "None of the Above",
           "partyCode": "NOTA",
-          "votes": 622,
-          "margin": "-67450",
+          "votes": 652,
+          "margin": "-73396",
           "status": "nota",
           "img": "https://results.eci.gov.in/ResultAcByeOct2026/img/nota.jpg",
           "rank": 7,
-          "votePercentage": "0.37"
+          "votePercentage": "0.35"
         },
         {
           "id": 7,
           "name": "P.N.R.BASKARAN",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 453,
-          "margin": "-67619",
-          "status": "trailing",
+          "votes": 497,
+          "margin": "-73551",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/PNRBA-2026-20260916064922.jpg",
           "rank": 8,
           "votePercentage": "0.27"
@@ -124,21 +124,21 @@
           "name": "NAVINDAR.V",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 381,
-          "margin": "-67691",
-          "status": "trailing",
+          "votes": 410,
+          "margin": "-73638",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/NAVIN-2026-20260916010828.jpg",
           "rank": 9,
-          "votePercentage": "0.23"
+          "votePercentage": "0.22"
         },
         {
           "id": 9,
           "name": "RAJAMANI",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 325,
-          "margin": "-67747",
-          "status": "trailing",
+          "votes": 353,
+          "margin": "-73695",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/RAJAM-2026-20260919034619.jpg",
           "rank": 10,
           "votePercentage": "0.19"
@@ -148,33 +148,33 @@
           "name": "KAYALVIZHI",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 310,
-          "margin": "-67762",
-          "status": "trailing",
+          "votes": 349,
+          "margin": "-73699",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/KAYAL-2026-20260919051259.jpg",
           "rank": 11,
-          "votePercentage": "0.18"
+          "votePercentage": "0.19"
         },
         {
           "id": 11,
           "name": "EZHIL.E",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 250,
-          "margin": "-67822",
-          "status": "trailing",
+          "votes": 267,
+          "margin": "-73781",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/EZHIL-2026-20260916025945.jpg",
           "rank": 12,
-          "votePercentage": "0.15"
+          "votePercentage": "0.14"
         },
         {
           "id": 12,
           "name": "M.MANOKAR",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 225,
-          "margin": "-67847",
-          "status": "trailing",
+          "votes": 238,
+          "margin": "-73810",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MMANO-2026-20260916054749.jpg",
           "rank": 13,
           "votePercentage": "0.13"
@@ -184,9 +184,9 @@
           "name": "K.ELAIYARASU",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 195,
-          "margin": "-67877",
-          "status": "trailing",
+          "votes": 216,
+          "margin": "-73832",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KELAI-2026-20260916062316.jpg",
           "rank": 14,
           "votePercentage": "0.12"
@@ -196,9 +196,9 @@
           "name": "RANJITHAM.M",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 142,
-          "margin": "-67930",
-          "status": "trailing",
+          "votes": 154,
+          "margin": "-73894",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RANJI-2026-20260910021100.jpg",
           "rank": 15,
           "votePercentage": "0.08"
@@ -208,21 +208,21 @@
           "name": "N.SATHIS KUMAR",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 105,
-          "margin": "-67967",
-          "status": "trailing",
+          "votes": 143,
+          "margin": "-73905",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/NSATH-2026-20260915071058.jpg",
           "rank": 16,
-          "votePercentage": "0.06"
+          "votePercentage": "0.08"
         },
         {
           "id": 16,
           "name": "K.BHUVANESWARI",
           "party": "Anaithinthiya Anna Dravida Makkal Seyal katchi",
           "partyCode": "OTH",
-          "votes": 98,
-          "margin": "-67974",
-          "status": "trailing",
+          "votes": 112,
+          "margin": "-73936",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KBHUV-2026-20260911043509.jpg",
           "rank": 17,
           "votePercentage": "0.06"
@@ -232,34 +232,34 @@
           "name": "DR.G.MOORTHY",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 95,
-          "margin": "-67977",
-          "status": "trailing",
+          "votes": 112,
+          "margin": "-73936",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/GMOOR-2026-20260919051332.jpg",
           "rank": 18,
           "votePercentage": "0.06"
         },
         {
           "id": 18,
-          "name": "S.MURUGAN",
+          "name": "LOGESH.K",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 81,
-          "margin": "-67991",
-          "status": "trailing",
-          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SMURU-2026-20260916071006.jpg",
+          "votes": 91,
+          "margin": "-73957",
+          "status": "lost",
+          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/LOGES-2026-20260916031726.jpg",
           "rank": 19,
           "votePercentage": "0.05"
         },
         {
           "id": 19,
-          "name": "LOGESH.K",
+          "name": "S.MURUGAN",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 81,
-          "margin": "-67991",
-          "status": "trailing",
-          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/LOGES-2026-20260916031726.jpg",
+          "votes": 86,
+          "margin": "-73962",
+          "status": "lost",
+          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SMURU-2026-20260916071006.jpg",
           "rank": 20,
           "votePercentage": "0.05"
         },
@@ -268,70 +268,70 @@
           "name": "M.KADIRVEL",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 69,
-          "margin": "-68003",
-          "status": "trailing",
+          "votes": 83,
+          "margin": "-73965",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/MKADI-2026-20260919051704.jpg",
           "rank": 21,
           "votePercentage": "0.04"
         },
         {
           "id": 21,
-          "name": "M.JEGAN",
+          "name": "S.ARUMUGAM",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 64,
-          "margin": "-68008",
-          "status": "trailing",
-          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MJEGA-2026-20260916034026.jpg",
+          "votes": 70,
+          "margin": "-73978",
+          "status": "lost",
+          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SARUM-2026-20260916060952.jpg",
           "rank": 22,
           "votePercentage": "0.04"
         },
         {
           "id": 22,
-          "name": "S.ARUMUGAM",
+          "name": "M.JEGAN",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 59,
-          "margin": "-68013",
-          "status": "trailing",
-          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SARUM-2026-20260916060952.jpg",
+          "votes": 67,
+          "margin": "-73981",
+          "status": "lost",
+          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MJEGA-2026-20260916034026.jpg",
           "rank": 23,
-          "votePercentage": "0.03"
+          "votePercentage": "0.04"
         },
         {
           "id": 23,
           "name": "G.RAJASEKAR",
           "party": "Desiya Makkal Sakthi Katchi",
           "partyCode": "OTH",
-          "votes": 42,
-          "margin": "-68030",
-          "status": "trailing",
+          "votes": 52,
+          "margin": "-73996",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/GRAJA-2026-20260915060249.jpg",
           "rank": 24,
-          "votePercentage": "0.02"
+          "votePercentage": "0.03"
         },
         {
           "id": 24,
-          "name": "V.MUTHUSELVAM",
-          "party": "Anti Corruption Dynamic Party",
+          "name": "J.RAVIKUMAR",
+          "party": "Republican Party of India (Sivaraj)",
           "partyCode": "OTH",
-          "votes": 36,
-          "margin": "-68036",
-          "status": "trailing",
-          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/VMUTH-2026-20260916041406.jpg",
+          "votes": 42,
+          "margin": "-74006",
+          "status": "lost",
+          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/JRAVI-2026-20260915073040.jpg",
           "rank": 25,
           "votePercentage": "0.02"
         },
         {
           "id": 25,
-          "name": "J.RAVIKUMAR",
-          "party": "Republican Party of India (Sivaraj)",
+          "name": "V.MUTHUSELVAM",
+          "party": "Anti Corruption Dynamic Party",
           "partyCode": "OTH",
-          "votes": 36,
-          "margin": "-68036",
-          "status": "trailing",
-          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/JRAVI-2026-20260915073040.jpg",
+          "votes": 39,
+          "margin": "-74009",
+          "status": "lost",
+          "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/VMUTH-2026-20260916041406.jpg",
           "rank": 26,
           "votePercentage": "0.02"
         },
@@ -340,9 +340,9 @@
           "name": "M.G.RAMU",
           "party": "Jebamani Janata",
           "partyCode": "OTH",
-          "votes": 27,
-          "margin": "-68045",
-          "status": "trailing",
+          "votes": 28,
+          "margin": "-74020",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MGRAM-2026-20260916051126.jpg",
           "rank": 27,
           "votePercentage": "0.02"
@@ -352,9 +352,9 @@
           "name": "K.ARUMUGAM",
           "party": "Independent",
           "partyCode": "IND",
-          "votes": 24,
-          "margin": "-68048",
-          "status": "trailing",
+          "votes": 26,
+          "margin": "-74022",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KARUM-2026-20260916082552.jpg",
           "rank": 28,
           "votePercentage": "0.01"
@@ -363,7 +363,7 @@
       "acId": "35",
       "acName": "Madurantakam",
       "sourceUrl": "https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S2235.htm",
-      "fetchedAt": "2026-10-09T12:06:00.721Z"
+      "fetchedAt": "2026-10-09T18:18:44.723Z"
     },
     "101": {
       "success": true,
@@ -372,8 +372,8 @@
       "currentRound": 23,
       "totalRounds": 23,
       "roundProgress": 100,
-      "lastUpdated": "05:33 pm On 09/10/2026",
-      "timestamp": "2026-10-09T12:06:01.517Z",
+      "lastUpdated": "11:06 pm On 09/10/2026",
+      "timestamp": "2026-10-09T18:18:45.805Z",
       "totalVotesCounted": 180532,
       "leadMargin": 9471,
       "leadingCandidate": {
@@ -405,7 +405,7 @@
           "partyCode": "DMK",
           "votes": 57370,
           "margin": "-9471",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SUGAN-2026-20260915042839.jpg",
           "rank": 2,
           "votePercentage": "31.78"
@@ -417,7 +417,7 @@
           "partyCode": "AIADMK",
           "votes": 45280,
           "margin": "-21561",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUM-2026-20260916092540.jpg",
           "rank": 3,
           "votePercentage": "25.08"
@@ -429,7 +429,7 @@
           "partyCode": "NTK",
           "votes": 5268,
           "margin": "-61573",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KARTH-2026-20260916090419.jpg",
           "rank": 4,
           "votePercentage": "2.92"
@@ -441,7 +441,7 @@
           "partyCode": "CPI",
           "votes": 1157,
           "margin": "-65684",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/LAKSH-2026-20260916072443.jpg",
           "rank": 5,
           "votePercentage": "0.64"
@@ -465,7 +465,7 @@
           "partyCode": "IND",
           "votes": 655,
           "margin": "-66186",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RAJAR-2026-20260915062944.jpg",
           "rank": 7,
           "votePercentage": "0.36"
@@ -477,7 +477,7 @@
           "partyCode": "IND",
           "votes": 473,
           "margin": "-66368",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MARIM-2026-20260916074606.jpg",
           "rank": 8,
           "votePercentage": "0.26"
@@ -489,7 +489,7 @@
           "partyCode": "IND",
           "votes": 437,
           "margin": "-66404",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/MUTHU-2026-20260916064743.jpg",
           "rank": 9,
           "votePercentage": "0.24"
@@ -501,7 +501,7 @@
           "partyCode": "IND",
           "votes": 325,
           "margin": "-66516",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUP-2026-20260915062542.jpg",
           "rank": 10,
           "votePercentage": "0.18"
@@ -513,7 +513,7 @@
           "partyCode": "IND",
           "votes": 273,
           "margin": "-66568",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHI-2026-20260915051952.jpg",
           "rank": 11,
           "votePercentage": "0.15"
@@ -525,7 +525,7 @@
           "partyCode": "IND",
           "votes": 253,
           "margin": "-66588",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/PERUM-2026-20260916101543.jpg",
           "rank": 12,
           "votePercentage": "0.14"
@@ -537,7 +537,7 @@
           "partyCode": "IND",
           "votes": 250,
           "margin": "-66591",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUM-2026-20260916081040.jpg",
           "rank": 13,
           "votePercentage": "0.14"
@@ -549,7 +549,7 @@
           "partyCode": "IND",
           "votes": 224,
           "margin": "-66617",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MAHEN-2026-20260916073046.jpg",
           "rank": 14,
           "votePercentage": "0.12"
@@ -561,7 +561,7 @@
           "partyCode": "IND",
           "votes": 195,
           "margin": "-66646",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/NALLA-2026-20260915070306.jpg",
           "rank": 15,
           "votePercentage": "0.11"
@@ -573,7 +573,7 @@
           "partyCode": "OTH",
           "votes": 154,
           "margin": "-66687",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/ARULR-2026-20260916085704.jpg",
           "rank": 16,
           "votePercentage": "0.09"
@@ -585,7 +585,7 @@
           "partyCode": "IND",
           "votes": 133,
           "margin": "-66708",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/DHANA-2026-20260916082805.jpg",
           "rank": 17,
           "votePercentage": "0.07"
@@ -597,7 +597,7 @@
           "partyCode": "IND",
           "votes": 124,
           "margin": "-66717",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/JOTHE-2026-20260915063915.jpg",
           "rank": 18,
           "votePercentage": "0.07"
@@ -609,7 +609,7 @@
           "partyCode": "IND",
           "votes": 117,
           "margin": "-66724",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RAJES-2026-20260915061746.jpg",
           "rank": 19,
           "votePercentage": "0.06"
@@ -621,7 +621,7 @@
           "partyCode": "IND",
           "votes": 102,
           "margin": "-66739",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHY-2026-20260915063438.jpg",
           "rank": 20,
           "votePercentage": "0.06"
@@ -633,7 +633,7 @@
           "partyCode": "OTH",
           "votes": 91,
           "margin": "-66750",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/ARUMU-2026-20260916103127.jpg",
           "rank": 21,
           "votePercentage": "0.05"
@@ -645,7 +645,7 @@
           "partyCode": "IND",
           "votes": 77,
           "margin": "-66764",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SASIP-2026-20260915062213.jpg",
           "rank": 22,
           "votePercentage": "0.04"
@@ -657,7 +657,7 @@
           "partyCode": "OTH",
           "votes": 56,
           "margin": "-66785",
-          "status": "trailing",
+          "status": "lost",
           "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MAHES-2026-20260915051407.jpg",
           "rank": 23,
           "votePercentage": "0.03"
@@ -666,7 +666,7 @@
       "acId": "101",
       "acName": "Dharapuram",
       "sourceUrl": "https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm",
-      "fetchedAt": "2026-10-09T12:06:01.517Z"
+      "fetchedAt": "2026-10-09T18:18:45.805Z"
     }
   },
   "data": {
@@ -676,8 +676,8 @@
     "currentRound": 23,
     "totalRounds": 23,
     "roundProgress": 100,
-    "lastUpdated": "05:33 pm On 09/10/2026",
-    "timestamp": "2026-10-09T12:06:01.517Z",
+    "lastUpdated": "11:06 pm On 09/10/2026",
+    "timestamp": "2026-10-09T18:18:45.805Z",
     "totalVotesCounted": 180532,
     "leadMargin": 9471,
     "leadingCandidate": {
@@ -709,7 +709,7 @@
         "partyCode": "DMK",
         "votes": 57370,
         "margin": "-9471",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SUGAN-2026-20260915042839.jpg",
         "rank": 2,
         "votePercentage": "31.78"
@@ -721,7 +721,7 @@
         "partyCode": "AIADMK",
         "votes": 45280,
         "margin": "-21561",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUM-2026-20260916092540.jpg",
         "rank": 3,
         "votePercentage": "25.08"
@@ -733,7 +733,7 @@
         "partyCode": "NTK",
         "votes": 5268,
         "margin": "-61573",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/KARTH-2026-20260916090419.jpg",
         "rank": 4,
         "votePercentage": "2.92"
@@ -745,7 +745,7 @@
         "partyCode": "CPI",
         "votes": 1157,
         "margin": "-65684",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/LAKSH-2026-20260916072443.jpg",
         "rank": 5,
         "votePercentage": "0.64"
@@ -769,7 +769,7 @@
         "partyCode": "IND",
         "votes": 655,
         "margin": "-66186",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RAJAR-2026-20260915062944.jpg",
         "rank": 7,
         "votePercentage": "0.36"
@@ -781,7 +781,7 @@
         "partyCode": "IND",
         "votes": 473,
         "margin": "-66368",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MARIM-2026-20260916074606.jpg",
         "rank": 8,
         "votePercentage": "0.26"
@@ -793,7 +793,7 @@
         "partyCode": "IND",
         "votes": 437,
         "margin": "-66404",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/S22/MUTHU-2026-20260916064743.jpg",
         "rank": 9,
         "votePercentage": "0.24"
@@ -805,7 +805,7 @@
         "partyCode": "IND",
         "votes": 325,
         "margin": "-66516",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUP-2026-20260915062542.jpg",
         "rank": 10,
         "votePercentage": "0.18"
@@ -817,7 +817,7 @@
         "partyCode": "IND",
         "votes": 273,
         "margin": "-66568",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHI-2026-20260915051952.jpg",
         "rank": 11,
         "votePercentage": "0.15"
@@ -829,7 +829,7 @@
         "partyCode": "IND",
         "votes": 253,
         "margin": "-66588",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/PERUM-2026-20260916101543.jpg",
         "rank": 12,
         "votePercentage": "0.14"
@@ -841,7 +841,7 @@
         "partyCode": "IND",
         "votes": 250,
         "margin": "-66591",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/BANUM-2026-20260916081040.jpg",
         "rank": 13,
         "votePercentage": "0.14"
@@ -853,7 +853,7 @@
         "partyCode": "IND",
         "votes": 224,
         "margin": "-66617",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MAHEN-2026-20260916073046.jpg",
         "rank": 14,
         "votePercentage": "0.12"
@@ -865,7 +865,7 @@
         "partyCode": "IND",
         "votes": 195,
         "margin": "-66646",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/NALLA-2026-20260915070306.jpg",
         "rank": 15,
         "votePercentage": "0.11"
@@ -877,7 +877,7 @@
         "partyCode": "OTH",
         "votes": 154,
         "margin": "-66687",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/ARULR-2026-20260916085704.jpg",
         "rank": 16,
         "votePercentage": "0.09"
@@ -889,7 +889,7 @@
         "partyCode": "IND",
         "votes": 133,
         "margin": "-66708",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/DHANA-2026-20260916082805.jpg",
         "rank": 17,
         "votePercentage": "0.07"
@@ -901,7 +901,7 @@
         "partyCode": "IND",
         "votes": 124,
         "margin": "-66717",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/JOTHE-2026-20260915063915.jpg",
         "rank": 18,
         "votePercentage": "0.07"
@@ -913,7 +913,7 @@
         "partyCode": "IND",
         "votes": 117,
         "margin": "-66724",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/RAJES-2026-20260915061746.jpg",
         "rank": 19,
         "votePercentage": "0.06"
@@ -925,7 +925,7 @@
         "partyCode": "IND",
         "votes": 102,
         "margin": "-66739",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SATHY-2026-20260915063438.jpg",
         "rank": 20,
         "votePercentage": "0.06"
@@ -937,7 +937,7 @@
         "partyCode": "OTH",
         "votes": 91,
         "margin": "-66750",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/ARUMU-2026-20260916103127.jpg",
         "rank": 21,
         "votePercentage": "0.05"
@@ -949,7 +949,7 @@
         "partyCode": "IND",
         "votes": 77,
         "margin": "-66764",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/SASIP-2026-20260915062213.jpg",
         "rank": 22,
         "votePercentage": "0.04"
@@ -961,7 +961,7 @@
         "partyCode": "OTH",
         "votes": 56,
         "margin": "-66785",
-        "status": "trailing",
+        "status": "lost",
         "img": "https://results.eci.gov.in/uploads2/candprofile/E34/2026/AC/s22/MAHES-2026-20260915051407.jpg",
         "rank": 23,
         "votePercentage": "0.03"
@@ -970,6 +970,6 @@
     "acId": "101",
     "acName": "Dharapuram",
     "sourceUrl": "https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm",
-    "fetchedAt": "2026-10-09T12:06:01.517Z"
+    "fetchedAt": "2026-10-09T18:18:45.805Z"
   }
 }
