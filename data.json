@@ -1,6 +1,6 @@
 {
   "success": true,
-  "lastUpdated": "2026-10-10T13:59:43.787Z",
+  "lastUpdated": "2026-10-10T18:14:42.136Z",
   "constituencies": {
     "35": {
       "success": true,
@@ -10,7 +10,7 @@
       "totalRounds": 27,
       "roundProgress": 100,
       "lastUpdated": "11:06 pm On 09/10/2026",
-      "timestamp": "2026-10-10T13:59:43.118Z",
+      "timestamp": "2026-10-10T18:14:41.388Z",
       "totalVotesCounted": 185292,
       "leadMargin": 20040,
       "leadingCandidate": {
@@ -363,7 +363,7 @@
       "acId": "35",
       "acName": "Madurantakam",
       "sourceUrl": "https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S2235.htm",
-      "fetchedAt": "2026-10-10T13:59:43.119Z"
+      "fetchedAt": "2026-10-10T18:14:41.389Z"
     },
     "101": {
       "success": true,
@@ -373,7 +373,7 @@
       "totalRounds": 23,
       "roundProgress": 100,
       "lastUpdated": "11:06 pm On 09/10/2026",
-      "timestamp": "2026-10-10T13:59:43.787Z",
+      "timestamp": "2026-10-10T18:14:42.136Z",
       "totalVotesCounted": 180532,
       "leadMargin": 9471,
       "leadingCandidate": {
@@ -666,7 +666,7 @@
       "acId": "101",
       "acName": "Dharapuram",
       "sourceUrl": "https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm",
-      "fetchedAt": "2026-10-10T13:59:43.787Z"
+      "fetchedAt": "2026-10-10T18:14:42.136Z"
     }
   },
   "data": {
@@ -677,7 +677,7 @@
     "totalRounds": 23,
     "roundProgress": 100,
     "lastUpdated": "11:06 pm On 09/10/2026",
-    "timestamp": "2026-10-10T13:59:43.787Z",
+    "timestamp": "2026-10-10T18:14:42.136Z",
     "totalVotesCounted": 180532,
     "leadMargin": 9471,
     "leadingCandidate": {
@@ -970,6 +970,6 @@
     "acId": "101",
     "acName": "Dharapuram",
     "sourceUrl": "https://results.eci.gov.in/ResultAcByeOct2026/candidateswise-S22101.htm",
-    "fetchedAt": "2026-10-10T13:59:43.787Z"
+    "fetchedAt": "2026-10-10T18:14:42.136Z"
   }
 }
